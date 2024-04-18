@@ -122,7 +122,7 @@ describe region --name=usertable
 
 load ycsb data. it will ask trustStoreType, then type in "JKS".
 ```
-./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='192.168.0.78[55221]' -P ./ycsb.config -P ./gemfire.config
+./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config
 
 Loading workload...
 Starting test.
@@ -155,7 +155,8 @@ Please enter the trustStoreType (javax.net.ssl.trustStoreType) : JKS
 then, verify loaded data in gemfire region
 and run actual testing.
 ```
-./bin/ycsb.sh run basic -P workloads/workloada -P ./ycsb.config 
+
+./bin/ycsb.sh run geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config
 
 ...
 [OVERALL], RunTime(ms), 29
@@ -171,7 +172,6 @@ and run actual testing.
 ```
 
 ## troubleshooting.
-
 
 ```
 org.apache.geode.distributed.internal.tcpserver.LocatorCancelException: Unrecognisable response received: object is null. This could be the result of trying to connect a non-SSL-enabled locator to an SSL-enabled locator.

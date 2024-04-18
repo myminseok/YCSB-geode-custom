@@ -69,11 +69,18 @@ LICENSE file.
     <url>https://github.com/brianfrankcooper/YCSB</url>
   </scm>
   <distributionManagement>
-    <repository>
+    <!-- <repository>
       <id>sonatype.releases.https</id>
       <name>Release Repo at sonatype oss.</name>
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-    </repository>
+    </repository> -->
+
+    <!-- https://docs.vmware.com/en/Spring-Boot-for-VMware-GemFire/1.0/sbgf/getting-started.html -->
+    <repository>
+      <id>gemfire-release-repo</id>
+      <name>Pivotal GemFire Release Repository</name>
+      <url>https://commercial-repo.pivotal.io/data3/gemfire-release-repo/gemfire</url>
+  </repository>
     <snapshotRepository>
       <id>sonatype.snapshots.https</id>
       <name>snapshot Repo at sonatype oss.</name>
