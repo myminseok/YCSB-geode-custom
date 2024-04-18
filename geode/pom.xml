@@ -29,11 +29,15 @@ LICENSE file.
   <name>Geode DB Binding</name>
   <packaging>jar</packaging>
 
+  <properties>
+    <vmware.gemfire.version>10.0.4</vmware.gemfire.version>
+  </properties>
+
   <dependencies>
     <dependency>
-      <groupId>org.apache.geode</groupId>
-      <artifactId>geode-core</artifactId>
-      <version>${geode.version}</version>
+      <groupId>com.vmware.gemfire</groupId>
+      <artifactId>gemfire-core</artifactId>
+      <version>${vmware.gemfire.version}</version>
     </dependency>
     <dependency>
       <groupId>site.ycsb</groupId>
@@ -42,4 +46,12 @@ LICENSE file.
       <scope>provided</scope>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>gemfire-release-repo</id>
+      <name>Pivotal GemFire Release Repository</name>
+      <url>https://commercial-repo.pivotal.io/data3/gemfire-release-repo/gemfire</url>
+    </repository>
+  </repositories>
 </project>
