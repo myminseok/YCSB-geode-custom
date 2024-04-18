@@ -122,7 +122,7 @@ describe region --name=usertable
 
 load ycsb data. it will ask trustStoreType, then type in "JKS".
 ```
-./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config
+./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s -p measurementtype=timeseries
 
 Loading workload...
 Starting test.
@@ -156,7 +156,7 @@ then, verify loaded data in gemfire region
 and run actual testing.
 ```
 
-./bin/ycsb.sh run geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config
+./bin/ycsb.sh run geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s -p measurementtype=timeseries
 
 ...
 [OVERALL], RunTime(ms), 29
