@@ -144,26 +144,32 @@ public class GeodeClient extends DB {
     }
     isClient = true;
 
-    Properties properties = new Properties();
-    //## does not work. implements AuthInitialize
-    // properties.setProperty("security-username", props.getProperty("security-username")); 
-    // properties.setProperty("security-password", props.getProperty("security-password")); 
-    properties.setProperty("security-client-auth-init", UserPasswordAuthInit.class.getName()); 
+    Properties ccfProps = new Properties();
+    // for auth setting if commercial gemfire
+    if (props.getProperty("gfsh-username") != null && !props.isEmpty()) {
+      //## simple property does not work. have to implement AuthInitialize
+      // properties.setProperty("security-username", props.getProperty("security-username")); 
+      // properties.setProperty("security-password", props.getProperty("security-password")); 
+      ccfProps.setProperty("security-client-auth-init", UserPasswordAuthInit.class.getName()); 
+    }
 
-    ClientCacheFactory ccf = new ClientCacheFactory(properties);
+    ClientCacheFactory ccf = null;
+    if (ccfProps.isEmpty()) {
+      ccf= new ClientCacheFactory();
+    }else{ // for SSL setting if commercial gemfire
+      ccf= new ClientCacheFactory(ccfProps);
+      ccf.set("log-level", "config");
+      ccf.set("cluster-ssl-enabled", props.getProperty("cluster-ssl-enabled"));
+      ccf.set("cluster-ssl-require-authentication", props.getProperty("cluster-ssl-require-authentication"));
+      ccf.set("cluster-ssl-ciphers", props.getProperty("cluster-ssl-ciphers"));
+      ccf.set("cluster-ssl-keystore", props.getProperty("ssl-keystore"));
+      ccf.set("cluster-ssl-keystore-password", props.getProperty("ssl-keystore-password"));
+      ccf.set("cluster-ssl-truststore", props.getProperty("ssl-truststore"));
+      ccf.set("cluster-ssl-truststore-password", props.getProperty("ssl-truststore-password"));
+      ccf.set("cluster-ssl-keystore-type", props.getProperty("cluster-ssl-keystore-type"));
+    }
+
     ccf.setPdxReadSerialized(true);
-
-        // //cat /var/vcap/jobs/gemfire-locator/config/gfsecurity.properties
-    ccf.set("log-level", "config");
-    ccf.set("cluster-ssl-enabled", props.getProperty("cluster-ssl-enabled"));
-    ccf.set("cluster-ssl-require-authentication", props.getProperty("cluster-ssl-require-authentication"));
-    ccf.set("cluster-ssl-ciphers", props.getProperty("cluster-ssl-ciphers"));
-    ccf.set("cluster-ssl-keystore", props.getProperty("ssl-keystore"));
-    ccf.set("cluster-ssl-keystore-password", props.getProperty("ssl-keystore-password"));
-    ccf.set("cluster-ssl-truststore", props.getProperty("ssl-truststore"));
-    ccf.set("cluster-ssl-truststore-password", props.getProperty("ssl-truststore-password"));
-    ccf.set("cluster-ssl-keystore-type", props.getProperty("cluster-ssl-keystore-type"));
-
 
     if (serverPort != 0) {
       ccf.addPoolServer(serverHost, serverPort);
