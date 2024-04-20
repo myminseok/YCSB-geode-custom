@@ -228,6 +228,7 @@ public class DBWrapper extends DB {
       long en = System.nanoTime();
       measure("INSERT", res, ist, st, en);
       measurements.reportStatus("INSERT", res);
+      //System.out.println("[DEBUG] DBWrapper.java insert() key:"+key); // TODO
       return res;
     }
   }

@@ -127,8 +127,6 @@ public class GeodeClient extends DB {
         serverPort = Integer.parseInt(serverPortStr);
       }
       serverHost = props.getProperty(SERVERHOST_PROPERTY_NAME, SERVERHOST_PROPERTY_DEFAULT);
-      System.out.println("## geode.serverhost:"+serverHost);
-
       locatorStr = props.getProperty(LOCATOR_PROPERTY_NAME);
 
       String topology = props.getProperty(TOPOLOGY_PROPERTY_NAME);
@@ -168,14 +166,20 @@ public class GeodeClient extends DB {
       ccf.set("cluster-ssl-truststore-password", props.getProperty("ssl-truststore-password"));
       ccf.set("cluster-ssl-keystore-type", props.getProperty("cluster-ssl-keystore-type"));
     }
-
+    
     ccf.setPdxReadSerialized(true);
-
+    ccf.setPoolMinConnections(1);
+    ccf.setPoolMaxConnections(-1);
+    
     if (serverPort != 0) {
       ccf.addPoolServer(serverHost, serverPort);
+      System.out.println("[DEBUG] GeodeClient.java init(): addPoolServer:"+
+          serverHost+":"+serverPort); // TODO
     } else  {
       InetSocketAddress locatorAddress = getLocatorAddress(locatorStr);
       ccf.addPoolLocator(locatorAddress.getHostName(), locatorAddress.getPort());
+      System.out.println("[DEBUG] GeodeClient.java addPoolLocator:"+
+          locatorAddress.getHostName()+":"+locatorAddress.getPort()); // TODO
     }
     cache = ccf.create();
   }
@@ -203,8 +207,10 @@ public class GeodeClient extends DB {
           result.put(field, new ByteArrayByteIterator((byte[]) val.getField(field)));
         }
       }
+     
       return Status.OK;
     }
+    //System.out.println("[DEBUG] GeodeClient.java read(): PdxInstance ERROR null"); // TODO
     return Status.ERROR;
   }
 
