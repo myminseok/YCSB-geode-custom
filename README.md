@@ -96,6 +96,8 @@ describe region --name=usertable
 #### generate and load data to geode
 ```
 ./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='127.0.0.1[10334]' -P ./ycsb.config 
+
+
 ```
 
 #### run test with the loaded data.
@@ -150,6 +152,7 @@ describe region --name=usertable
 
 ./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s -p measurementtype=timeseries
 
+
 Loading workload...
 Starting test.
 ...
@@ -184,6 +187,9 @@ then, verify loaded data in gemfire region
 ./bin/ycsb.sh run geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s
 
 ./bin/ycsb.sh run geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s -p measurementtype=timeseries
+
+./bin/ycsb.sh run geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s &> ./output_gemfire_10000_1t_load.txt
+
 
 ...
 [OVERALL], RunTime(ms), 29
