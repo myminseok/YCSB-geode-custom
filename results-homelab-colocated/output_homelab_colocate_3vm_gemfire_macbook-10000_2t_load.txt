@@ -1,0 +1,228 @@
+/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/bin/java  -classpath /Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/conf:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/core/target/core-0.18.0-SNAPSHOT.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/core/target/dependency/HdrHistogram-2.1.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/core/target/dependency/htrace-core4-4.1.0-incubating.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/core/target/dependency/jackson-core-asl-1.9.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/core/target/dependency/jackson-mapper-asl-1.9.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/geode-binding-0.18.0-SNAPSHOT.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/HdrHistogram-2.1.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/LatencyUtils-2.0.3.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/antlr-2.7.7.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/bson-4.8.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/classgraph-4.8.154.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/commons-beanutils-1.9.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/commons-codec-1.11.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/commons-collections-3.2.2.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/commons-digester-2.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/commons-io-2.11.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/commons-lang3-3.12.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/commons-logging-1.2.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/commons-validator-1.7.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/fastutil-8.5.11.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-common-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-core-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-deployment-chained-classloader-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-logging-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-management-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-membership-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-serialization-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-tcp-messenger-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-tcp-server-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-unsafe-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/gemfire-version-10.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/httpclient-4.5.14.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/httpcore-4.4.16.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/istack-commons-runtime-4.0.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jackson-annotations-2.16.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jackson-core-2.16.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jackson-databind-2.16.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jackson-datatype-joda-2.16.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jackson-datatype-jsr310-2.16.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/javax.activation-api-1.2.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/javax.resource-api-1.7.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/javax.transaction-api-1.3.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jaxb-api-2.3.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jaxb-impl-2.3.2.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jgroups-3.6.14.Final.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jna-5.12.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jna-platform-5.12.1.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/joda-time-2.10.14.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/jopt-simple-5.0.4.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/log4j-api-2.19.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/micrometer-commons-1.10.2.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/micrometer-core-1.10.2.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/micrometer-observation-1.10.2.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/netty-buffer-4.1.108.Final.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/netty-codec-4.1.108.Final.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/netty-common-4.1.108.Final.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/netty-handler-4.1.108.Final.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/netty-resolver-4.1.108.Final.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/netty-transport-4.1.108.Final.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/netty-transport-native-unix-common-4.1.108.Final.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/rmiio-2.1.2.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/shiro-cache-1.13.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/shiro-config-core-1.13.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/shiro-config-ogdl-1.13.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/shiro-core-1.13.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/shiro-crypto-cipher-1.13.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/shiro-crypto-core-1.13.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/shiro-crypto-hash-1.13.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/shiro-event-1.13.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/shiro-lang-1.13.0.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/slf4j-api-1.7.25.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/spring-beans-5.3.34.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/spring-core-5.3.34.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/spring-jcl-5.3.34.jar:/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/YCSB-geode-custom/geode/target/dependency/spring-web-5.3.34.jar site.ycsb.Client -load -db site.ycsb.db.GeodeClient -P ../YCSB-geode-custom/workloads/workloada -p geode.locator=192.168.0.78[55221] -P ./ycsb.config -P ./gemfire.config -s
+Command line: -load -db site.ycsb.db.GeodeClient -P ../YCSB-geode-custom/workloads/workloada -p geode.locator=192.168.0.78[55221] -P ./ycsb.config -P ./gemfire.config -s
+[INFO] recordcount:10000
+[INFO] threadcount:2
+[INFO] operationcount:10000
+[INFO] readproportion:0.5
+[INFO] updateproportion:0.5
+YCSB Client 0.18.0-SNAPSHOT
+
+Loading workload...
+Starting test.
+2024-04-20 23:41:05:449 0 sec: 0 operations; est completion in 0 second 
+ERROR StatusLogger Log4j2 could not find a logging implementation. Please add log4j-core to the classpath. Using SimpleLogger to log to the console...
+[DEBUG] GeodeClient.java addPoolLocator:4c5fec0a-a29e-461a-a8a4-c9c6af900194.locator-server.network.service-instance-1d8cf652-27f5-4220-a04f-1cadb69b08fe.bosh:55221
+[DEBUG] GeodeClient.java addPoolLocator:4c5fec0a-a29e-461a-a8a4-c9c6af900194.locator-server.network.service-instance-1d8cf652-27f5-4220-a04f-1cadb69b08fe.bosh:55221
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+Exception in thread "Thread-3" java.lang.IllegalStateException: A connection to a distributed system already exists in this VM.  It has the following configuration:  ack-severe-alert-threshold="0"
+  ack-wait-threshold="15"
+  archive-disk-space-limit="0"
+  archive-file-size-limit="0"
+  async-distribution-timeout="0"
+  async-max-queue-size="8"
+  async-queue-timeout="60000"
+  bind-address=""
+  cache-xml-file="cache.xml"
+  cluster-configuration-dir=""
+  cluster-ssl-ciphers="any"
+  cluster-ssl-enabled="true"
+  cluster-ssl-keystore="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi/keystore.jks"
+  cluster-ssl-keystore-password="rF0zsdaFyDNFxE6aFy1w0fmtGmYV76"
+  cluster-ssl-keystore-type="JKS"
+  cluster-ssl-protocols="any"
+  cluster-ssl-require-authentication="false"
+  cluster-ssl-truststore="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi/truststore.jks"
+  cluster-ssl-truststore-password="2dF0Tt3ntVmXtbCZMu361wfgilQOVE"
+  conflate-events="server"
+  conserve-sockets="false"
+  delta-propagation="true"
+  deploy-working-dir="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi"
+  disable-auto-reconnect="false"
+  disable-jmx="false"
+  disable-tcp="false"
+  distributed-system-id="-1"
+  distributed-transactions="false"
+  durable-client-id=""
+  durable-client-timeout="300"
+  enable-cluster-configuration="true"
+  enable-management-rest-service="true"
+  enable-network-partition-detection="true"
+  enable-time-statistics="true"
+  enforce-unique-host="false"
+  gateway-ssl-ciphers="any"
+  gateway-ssl-enabled="true"
+  gateway-ssl-keystore="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi/keystore.jks"
+  gateway-ssl-keystore-password="rF0zsdaFyDNFxE6aFy1w0fmtGmYV76"
+  gateway-ssl-keystore-type="JKS"
+  gateway-ssl-protocols="any"
+  gateway-ssl-require-authentication="false"
+  gateway-ssl-truststore="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi/truststore.jks"
+  gateway-ssl-truststore-password="2dF0Tt3ntVmXtbCZMu361wfgilQOVE"
+  groups=""
+  http-service-bind-address=""
+  http-service-port="7070"
+  http-service-ssl-ciphers="any"
+  http-service-ssl-enabled="true"
+  http-service-ssl-keystore="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi/keystore.jks"
+  http-service-ssl-keystore-password="rF0zsdaFyDNFxE6aFy1w0fmtGmYV76"
+  http-service-ssl-keystore-type="JKS"
+  http-service-ssl-protocols="any"
+  http-service-ssl-require-authentication="false"
+  http-service-ssl-truststore="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi/truststore.jks"
+  http-service-ssl-truststore-password="2dF0Tt3ntVmXtbCZMu361wfgilQOVE"
+  jmx-manager="false"
+  jmx-manager-access-file=""
+  jmx-manager-bind-address=""
+  jmx-manager-hostname-for-clients=""
+  jmx-manager-http-port="7070"
+  jmx-manager-password-file=""
+  jmx-manager-port="1099"
+  jmx-manager-ssl-ciphers="any"
+  jmx-manager-ssl-enabled="true"
+  jmx-manager-ssl-keystore="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi/keystore.jks"
+  jmx-manager-ssl-keystore-password="rF0zsdaFyDNFxE6aFy1w0fmtGmYV76"
+  jmx-manager-ssl-keystore-type="JKS"
+  jmx-manager-ssl-protocols="any"
+  jmx-manager-ssl-require-authentication="false"
+  jmx-manager-ssl-truststore="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi/truststore.jks"
+  jmx-manager-ssl-truststore-password="2dF0Tt3ntVmXtbCZMu361wfgilQOVE"
+  jmx-manager-start="false"
+  jmx-manager-update-rate="2000"
+  load-cluster-configuration-from-dir="false"
+  locator-wait-time="0"
+  locators=""
+  lock-memory="false"
+  log-disk-space-limit="0"
+  log-file=""
+  log-file-size-limit="0"
+  log-level="config"
+  max-num-reconnect-tries="3"
+  max-wait-time-reconnect="60000"
+  mcast-address="239.192.81.1/239.192.81.1"
+  mcast-flow-control="1048576, 0.25, 5000"
+  mcast-port="0"
+  mcast-recv-buffer-size="1048576"
+  mcast-send-buffer-size="65535"
+  mcast-ttl="32"
+  member-timeout="5000"
+  membership-port-range="[41000,61000]"
+  memcached-bind-address=""
+  memcached-port="0"
+  memcached-protocol="ASCII"
+  name=""
+  off-heap-memory-size=""
+  redundancy-zone=""
+  remote-locators=""
+  remove-unresponsive-client="false"
+  roles=""
+  security-auth-token-enabled-components="[]"
+  security-client-accessor=""
+  security-client-accessor-pp=""
+  security-client-auth-init="site.ycsb.db.UserPasswordAuthInit"
+  security-client-authenticator=""
+  security-client-dhalgo=""
+  security-log-file=""
+  security-log-level="config"
+  security-manager=""
+  security-peer-auth-init=""
+  security-peer-authenticator=""
+  security-peer-verifymember-timeout="1000"
+  security-post-processor=""
+  security-shiro-init=""
+  security-udp-dhalgo=""
+  serializable-object-filter="!*"
+  server-bind-address=""
+  server-ssl-ciphers="any"
+  server-ssl-enabled="true"
+  server-ssl-keystore="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi/keystore.jks"
+  server-ssl-keystore-password="rF0zsdaFyDNFxE6aFy1w0fmtGmYV76"
+  server-ssl-keystore-type="JKS"
+  server-ssl-protocols="any"
+  server-ssl-require-authentication="false"
+  server-ssl-truststore="/Users/kminseok/_dev/tanzu-main/gemfire-performance-testing/config-homelab-multi/truststore.jks"
+  server-ssl-truststore-password="2dF0Tt3ntVmXtbCZMu361wfgilQOVE"
+  socket-buffer-size="32768"
+  socket-lease-time="1800000"
+  ssl-ciphers="any"
+  ssl-client-protocols=""
+  ssl-cluster-alias=""
+  ssl-default-alias=""
+  ssl-enabled-components="[]"
+  ssl-endpoint-identification-enabled="false"
+  ssl-gateway-alias=""
+  ssl-jmx-alias=""
+  ssl-keystore=""
+  ssl-keystore-password=""
+  ssl-keystore-type=""
+  ssl-locator-alias=""
+  ssl-parameter-extension=""
+  ssl-protocols="any"
+  ssl-require-authentication="true"
+  ssl-server-alias=""
+  ssl-server-protocols=""
+  ssl-truststore=""
+  ssl-truststore-password=""
+  ssl-truststore-type=""
+  ssl-use-default-context="false"
+  ssl-web-alias=""
+  ssl-web-require-authentication="false"
+  start-dev-rest-api="false"
+  start-locator=""
+  statistic-archive-file=""
+  statistic-sample-rate="1000"
+  statistic-sampling-enabled="true"
+  tcp-port="0"
+  thread-monitor-enabled="true"
+  thread-monitor-interval-ms="60000"
+  thread-monitor-time-limit-ms="120000"
+  udp-fragment-size="60000"
+  udp-recv-buffer-size="1048576"
+  udp-send-buffer-size="65535"
+  use-cluster-configuration="true"
+  use-udp-membership-messenger="false"
+  user-command-packages=""
+  validate-serializable-objects="false"
+
+	at org.apache.geode.distributed.internal.InternalDistributedSystem.validateSameProperties(InternalDistributedSystem.java:2807)
+	at org.apache.geode.distributed.internal.InternalDistributedSystem.connectInternal(InternalDistributedSystem.java:276)
+	at org.apache.geode.distributed.internal.InternalDistributedSystem.connectInternal(InternalDistributedSystem.java:215)
+	at org.apache.geode.cache.client.ClientCacheFactory.connectInternalDistributedSystem(ClientCacheFactory.java:285)
+	at org.apache.geode.cache.client.ClientCacheFactory.basicCreate(ClientCacheFactory.java:255)
+	at org.apache.geode.cache.client.ClientCacheFactory.create(ClientCacheFactory.java:222)
+	at site.ycsb.db.GeodeClient.init(GeodeClient.java:184)
+	at site.ycsb.DBWrapper.init(DBWrapper.java:90)
+	at site.ycsb.ClientThread.run(ClientThread.java:91)
+	at java.lang.Thread.run(Thread.java:748)
+## UserPasswordAuthInit security-username:cluster_operator_kSZXA6unTmdKT3slnH5EJg
+## UserPasswordAuthInit security-username:cluster_operator_kSZXA6unTmdKT3slnH5EJg
+## UserPasswordAuthInit security-username:cluster_operator_kSZXA6unTmdKT3slnH5EJg
+2024-04-20 23:41:15:419 10 sec: 1235 operations; 123.44 current ops/sec; est completion in 1 minute [INSERT: Count=1236, Max=957439, Min=3114, Avg=6692.11, 90=9103, 99=18463, 99.9=99199, 99.99=957439] 
+2024-04-20 23:41:25:421 20 sec: 3266 operations; 203.08 current ops/sec; est completion in 42 seconds [INSERT: Count=2031, Max=30207, Min=2310, Avg=4860.79, 90=6951, 99=12727, 99.9=23951, 99.99=30207] 
+2024-04-20 23:41:33:969 28 sec: 5000 operations; 202.83 current ops/sec; est completion in 29 seconds [CLEANUP: Count=1, Max=5, Min=5, Avg=5, 90=5, 99=5, 99.9=5, 99.99=5] [INSERT: Count=1733, Max=62687, Min=2518, Avg=4882.94, 90=6695, 99=16831, 99.9=42143, 99.99=62687] 
+[OVERALL], RunTime(ms), 28555
+[OVERALL], Throughput(ops/sec), 175.1006828926633
+[TOTAL_GCS_PS_Scavenge], Count, 2
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 78
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.27315706531255474
+[TOTAL_GCS_PS_MarkSweep], Count, 1
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 20
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.07004027315706532
+[TOTAL_GCs], Count, 3
+[TOTAL_GC_TIME], Time(ms), 98
+[TOTAL_GC_TIME_%], Time(%), 0.34319733846962003
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 5.0
+[CLEANUP], MinLatency(us), 5
+[CLEANUP], MaxLatency(us), 5
+[CLEANUP], 95thPercentileLatency(us), 5
+[CLEANUP], 99thPercentileLatency(us), 5
+[INSERT], Operations, 5000
+[INSERT], AverageLatency(us), 5321.1674
+[INSERT], MinLatency(us), 2310
+[INSERT], MaxLatency(us), 957439
+[INSERT], 95thPercentileLatency(us), 9223
+[INSERT], 99thPercentileLatency(us), 16327
+[INSERT], Return=OK, 5000
