@@ -35,8 +35,19 @@ LICENSE file.
 
   <dependencies>
     <dependency>
+      <groupId>org.awaitility</groupId>
+      <artifactId>awaitility</artifactId>
+      <version>4.2.1</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.vmware.gemfire</groupId>
       <artifactId>gemfire-core</artifactId>
+      <version>${vmware.gemfire.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.vmware.gemfire</groupId>
+      <artifactId>gemfire-cq</artifactId>
       <version>${vmware.gemfire.version}</version>
     </dependency>
     <dependency>
