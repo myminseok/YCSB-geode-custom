@@ -1,3 +1,15 @@
+
+## WARNING 
+there is a bug in YCSB geode module when running against Gemfire for TAS. in that if "threadcount" in workload config is more than 2, it fails to create more than 1 connection to gemfire server. for successful execution, set "threadcount=1" as following:
+
+workload config
+```
+recordcount=1000
+threadcount=1
+operationcount=1000
+```
+
+## about 
 folked from https://github.com/brianfrankcooper/YCSB/ and Modified geode module for testing.
 
 added authentication and SSL to geode. 
@@ -6,7 +18,6 @@ added authentication and SSL to geode.
 - https://lists.apache.org/thread/sfp0h3fz8kkwfzft8mrf46kcqyh8q7kv
 
 and removed other components for smaller size.
-
 
 ## build YCSB 
 ```
@@ -22,46 +33,68 @@ mvn -Psource-run clean  package -DskipTests
 
 #### Prepare Gemfire Cluster locally.
 
-1. Run Locator
-
-edit /etc/hosts 
-```
-  127.0.0.1 gf-locator 
-  127.0.0.1 gf-server
-```
+https://hub.docker.com/r/gemfire/gemfire
 
 ```
-docker run --rm  -e 'ACCEPT_TERMS=y' --name gf-locator -p 10334:10334 -p 7070:7070 gemfire/gemfire:10.0 gfsh start locator --name=locator --mcast-port=0 --port=10334 --hostname-for-clients=gf-locator
-```
+docker network create gf-network
 
-2. Run Server
-add  machine real IP for Gemfire cluster to /etc/hosts 
-```
-  192.168.188.1 gf-locator 
-  192.168.188.1 gf-server
+docker run -it -e 'ACCEPT_TERMS=y' --rm --name gf-locator --network=gf-network -p 10334:10334 -p 7070:7070 gemfire/gemfire:9.15.6 gfsh start locator --name=locator1
+
+docker run -it -e 'ACCEPT_TERMS=y' --rm --name gf-server1 --network=gf-network -p 40404:40404 gemfire/gemfire:9.15.6 gfsh start server --name=server1 --locators='gf-locator[10334]'
+
+docker run -it -e 'ACCEPT_TERMS=y' --rm --name gf-server2 --network=gf-network -p 40405:40405 gemfire/gemfire:9.15.6 gfsh start server --name=server2 --locators=g'gf-locator[10334]'
+
 ```
 
 ```
-docker run --rm -e 'ACCEPT_TERMS=y' --name gf-server  -p 40404:40404 gemfire/gemfire:10.0 gfsh start server --name=server --locators='gf-locator[10334]' --server-port=40404 --hostname-for-clients=gf-server
+docker run -it -e 'ACCEPT_TERMS=y' --rm --network=gf-network gemfire/gemfire:9.15.6 gfsh
+
+gfsh> connect --jmx-manager=gf-locator[1099]
 ```
+
+
+To view GemFire locators and servers with Pulse:
+
+In a compatible web browser, browse to http://localhost:7070/pulse/login.html.
+
+When prompted for credentials, use the username admin and password admin to log in.
+
+
 
 
 ### RUN YCSB locally
 
+#### add geode domain to /etc/hosts
+find out domain name of geode component to be called from YCSB:
+```
+docker ps
+4e7a8ac8ccfe   gemfire/gemfire:10.0   "sh /application/ent…"  ...   1099/tcp, 7070/tcp, 8080/tcp, 10334/tcp, 40404/tcp, 0.0.0.0:40405->40405/tcp      gf-server2
+8571c0241150   gemfire/gemfire:10.0   "sh /application/ent…"  ...   1099/tcp, 7070/tcp, 8080/tcp, 10334/tcp, 0.0.0.0:40404->40404/tcp                 gf-server1
+f4daa42ded08   gemfire/gemfire:10.0   "sh /application/ent…"  ...   1099/tcp, 0.0.0.0:7070->7070/tcp, 8080/tcp, 40404/tcp, 0.0.0.0:10334->10334/tcp   gf-locator
+```
+find out external IP address. 
+```
+ ifconfig | grep inet | grep 192
+	inet 192.168.0.213 netmask 0xffff0000 broadcast 192.168.255.255
+	inet 192.168.64.1 netmask 0xffffff00 broadcast 192.168.64.255
+	inet 192.168.188.1 netmask 0xffffff00 broadcast 192.168.188.255
+```
 
-prepare gemfire ssl config to local machine
+add geode domain to /etc/hosts
 ```
-./keystore.jks
-./truststore.jks
-./gemfire.config
-```
-
-overrides workload settings: 
-```
-./ycsb.config
+192.168.0.213 gf-locator
+192.168.0.213 gf-server
+192.168.0.213 f4daa42ded08
+192.168.0.213 8571c0241150
+192.168.0.213 4e7a8ac8ccfe
 ```
 
-prepare gemfire region via gfsh:
+#### (optional) overrides YCSB workload settings: 
+```
+vi ./ycsb.config
+```
+
+#### prepare gemfire region via gfsh:
 ```
 destroy region --name=usertable
 
@@ -71,41 +104,45 @@ describe region --name=usertable
 ```
 
 
-generate and load data to geode
+#### generate and load data to geode
 ```
-./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='127.0.0.1[10334]' -P ../ycsb.config 
+./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='127.0.0.1[10334]' -P ./ycsb.config 
+
+
 ```
 
-run test with the loaded data.
+#### run test with the loaded data.
 ```
-./bin/ycsb.sh run basic -P workloads/workloada -P ../ycsb.config 
+./bin/ycsb.sh run geode -P workloads/workloada -p geode.locator='127.0.0.1[10334]' -P ./ycsb.config 
 ```
 
 
 ## testing on gemfire for TAS
 
-create a service instance
+####  create a service instance
 ```
 cf create-service p-cloudcache co-multivm1 my-cloudcache -c '{"tls": true, "num_servers": 3}' 
+
+or
+
 cf create-service p-cloudcache co-multivm1 my-cloudcache -c '{"tls": true, "num_servers": 3, "service_gateway": true, "distributed_system_id": 2}'
 ```
 
-and generate key, access credentials.
+#### generate key, access credentials.
 ```
 cf create-service-key my-cloudcache test-key
 cf service-key my-cloudcache test-key
 ```
 
-set access credentials. and SSL config.
-```
-./keystore.jks
-./truststore.jks
-./gemfire.config
-```
+####  copy SSL config from gemfire locator (/var/vcap/jobs/gemfire-locator/config/)
+- keystore.jks
+- truststore.jks
 
+#### edit ./gemfire.config by referencing:
+- SSL config from /var/vcap/jobs/gemfire-locator/config/gfsecurity.properties.
+- username/password from cf service-key my-cloudcache test-key
 
-and setup gemfire region via gfsh:
-
+#### setup gemfire region via gfsh:
 ```
 export JAVA_HOME=/var/vcap/packages/jdk
 
@@ -120,9 +157,12 @@ describe region --name=usertable
 ```
 
 
-load ycsb data. it will ask trustStoreType, then type in "JKS".
+#### load ycsb data. it will ask trustStoreType, then type in "JKS".
 ```
-./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='192.168.0.78[55221]' -P ./ycsb.config -P ./gemfire.config
+./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s
+
+./bin/ycsb.sh load geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s -p measurementtype=timeseries
+
 
 Loading workload...
 Starting test.
@@ -153,9 +193,14 @@ Please enter the trustStoreType (javax.net.ssl.trustStoreType) : JKS
 
 ```
 then, verify loaded data in gemfire region
-and run actual testing.
+####  run actual workload testing.
 ```
-./bin/ycsb.sh run basic -P workloads/workloada -P ./ycsb.config 
+./bin/ycsb.sh run geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s
+
+./bin/ycsb.sh run geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s -p measurementtype=timeseries
+
+./bin/ycsb.sh run geode -P workloads/workloada -p geode.locator='10.1.5.44[55221]' -P ./ycsb.config -P ./gemfire.config -s &> ./output_gemfire_10000_1t_load.txt
+
 
 ...
 [OVERALL], RunTime(ms), 29
@@ -171,7 +216,6 @@ and run actual testing.
 ```
 
 ## troubleshooting.
-
 
 ```
 org.apache.geode.distributed.internal.tcpserver.LocatorCancelException: Unrecognisable response received: object is null. This could be the result of trying to connect a non-SSL-enabled locator to an SSL-enabled locator.
