@@ -17,6 +17,22 @@
 
 package site.ycsb.db;
 
+import org.apache.geode.cache.GemFireCache;
+import org.apache.geode.cache.Region;
+import org.apache.geode.cache.RegionExistsException;
+import org.apache.geode.cache.client.ClientCache;
+import org.apache.geode.cache.client.ClientCacheFactory;
+import org.apache.geode.cache.client.ClientRegionFactory;
+import org.apache.geode.cache.client.ClientRegionShortcut;
+import org.apache.geode.pdx.JSONFormatter;
+import org.apache.geode.pdx.PdxInstance;
+import org.apache.geode.pdx.PdxInstanceFactory;
+import site.ycsb.ByteArrayByteIterator;
+import site.ycsb.ByteIterator;
+import site.ycsb.DB;
+import site.ycsb.DBException;
+import site.ycsb.Status;
+
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,26 +42,7 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import site.ycsb.ByteArrayByteIterator;
-import site.ycsb.ByteIterator;
-import site.ycsb.DB;
-import site.ycsb.DBException;
-import site.ycsb.Status;
-
-import org.apache.geode.cache.Cache;
-import org.apache.geode.cache.CacheFactory;
-import org.apache.geode.cache.GemFireCache;
-import org.apache.geode.cache.Region;
-import org.apache.geode.cache.RegionExistsException;
-import org.apache.geode.cache.RegionFactory;
-import org.apache.geode.cache.RegionShortcut;
-import org.apache.geode.cache.client.ClientCache;
-import org.apache.geode.cache.client.ClientCacheFactory;
-import org.apache.geode.cache.client.ClientRegionFactory;
-import org.apache.geode.cache.client.ClientRegionShortcut;
-import org.apache.geode.pdx.JSONFormatter;
-import org.apache.geode.pdx.PdxInstance;
-import org.apache.geode.pdx.PdxInstanceFactory;
+import static org.awaitility.Awaitility.await;
 
 /**
  * Apache Geode client for the YCSB benchmark.<br />
@@ -69,114 +66,63 @@ import org.apache.geode.pdx.PdxInstanceFactory;
  */
 public class GeodeClient extends DB {
   /**
-   * property name of the port where Geode server is listening for connections.
-   */
-  private static final String SERVERPORT_PROPERTY_NAME = "geode.serverport";
-
-  /**
-   * property name of the host where Geode server is running.
-   */
-  private static final String SERVERHOST_PROPERTY_NAME = "geode.serverhost";
-
-  /**
-   * default value of {@link #SERVERHOST_PROPERTY_NAME}.
-   */
-  private static final String SERVERHOST_PROPERTY_DEFAULT = "localhost";
-
-  /**
    * property name to specify a Geode locator. This property can be used in both
    * client server and p2p topology
    */
   private static final String LOCATOR_PROPERTY_NAME = "geode.locator";
 
   /**
-   * property name to specify Geode topology.
-   */
-  private static final String TOPOLOGY_PROPERTY_NAME = "geode.topology";
-
-  /**
-   * value of {@value #TOPOLOGY_PROPERTY_NAME} when peer to peer topology should be used.
-   * (client-server topology is default)
-   */
-  private static final String TOPOLOGY_P2P_VALUE = "p2p";
-
-  /**
    * Pattern to split up a locator string in the form host[port].
    */
-  private static final Pattern LOCATOR_PATTERN = Pattern.compile("(.+)\\[(\\d+)\\]");;
+  private static final Pattern LOCATOR_PATTERN = Pattern.compile("(.+)\\[(\\d+)\\]");
 
-  private GemFireCache cache;
+  private static volatile GemFireCache cache;
+  private static volatile boolean cacheStarted = false;
 
-  /**
-   * true if ycsb client runs as a client to a Geode cache server.
-   */
-  private boolean isClient;
+  public GeodeClient() {
+    System.err.println("Calling GeodeClient constructor");
+
+  }
+
+  private void initializeCache() {
+    Properties props = getProperties();
+    if (props != null && !props.isEmpty()) {
+      ClientCacheFactory ccf = getClientCacheFactory();
+
+      InetSocketAddress locatorAddress = getLocatorAddress(props.getProperty(LOCATOR_PROPERTY_NAME));
+      ccf.addPoolLocator(locatorAddress.getHostName(), locatorAddress.getPort());
+      ccf.set("name", "geode-client");
+
+      synchronized (GeodeClient.class) {
+        if (cache == null) {
+          System.err.println("Creating Cache");
+          cache = ccf.create();
+          System.err.println("Created Cache: " + cache.getName());
+        }
+      }
+      cacheStarted = true;
+    }
+  }
 
   @Override
   public void init() throws DBException {
-    Properties props = getProperties();
-    // hostName where Geode cacheServer is running
-    String serverHost = null;
-    // port of Geode cacheServer
-    int serverPort = 0;
-    String locatorStr = null;
-
-    if (props != null && !props.isEmpty()) {
-      String serverPortStr = props.getProperty(SERVERPORT_PROPERTY_NAME);
-      if (serverPortStr != null) {
-        serverPort = Integer.parseInt(serverPortStr);
-      }
-      serverHost = props.getProperty(SERVERHOST_PROPERTY_NAME, SERVERHOST_PROPERTY_DEFAULT);
-      System.out.println("## geode.serverhost:"+serverHost);
-
-      locatorStr = props.getProperty(LOCATOR_PROPERTY_NAME);
-
-      String topology = props.getProperty(TOPOLOGY_PROPERTY_NAME);
-      if (topology != null && topology.equals(TOPOLOGY_P2P_VALUE)) {
-        CacheFactory cf = new CacheFactory();
-        if (locatorStr != null) {
-          cf.set("locators", locatorStr);
-        }
-        cache = cf.create();
-        isClient = false;
-        return;
-      }
+    if (cache == null) {
+      initializeCache();
     }
-    isClient = true;
+    await().until(() -> cacheStarted);
+  }
 
+  private static ClientCacheFactory getClientCacheFactory() {
     Properties properties = new Properties();
-    //## does not work. implements AuthInitialize
-    // properties.setProperty("security-username", props.getProperty("security-username")); 
-    // properties.setProperty("security-password", props.getProperty("security-password")); 
-    properties.setProperty("security-client-auth-init", UserPasswordAuthInit.class.getName()); 
-
     ClientCacheFactory ccf = new ClientCacheFactory(properties);
     ccf.setPdxReadSerialized(true);
-
-        // //cat /var/vcap/jobs/gemfire-locator/config/gfsecurity.properties
     ccf.set("log-level", "config");
-    ccf.set("cluster-ssl-enabled", props.getProperty("cluster-ssl-enabled"));
-    ccf.set("cluster-ssl-require-authentication", props.getProperty("cluster-ssl-require-authentication"));
-    ccf.set("cluster-ssl-ciphers", props.getProperty("cluster-ssl-ciphers"));
-    ccf.set("cluster-ssl-keystore", props.getProperty("ssl-keystore"));
-    ccf.set("cluster-ssl-keystore-password", props.getProperty("ssl-keystore-password"));
-    ccf.set("cluster-ssl-truststore", props.getProperty("ssl-truststore"));
-    ccf.set("cluster-ssl-truststore-password", props.getProperty("ssl-truststore-password"));
-    ccf.set("cluster-ssl-keystore-type", props.getProperty("cluster-ssl-keystore-type"));
-
-
-    if (serverPort != 0) {
-      ccf.addPoolServer(serverHost, serverPort);
-    } else  {
-      InetSocketAddress locatorAddress = getLocatorAddress(locatorStr);
-      ccf.addPoolLocator(locatorAddress.getHostName(), locatorAddress.getPort());
-    }
-    cache = ccf.create();
+    return ccf;
   }
 
   static InetSocketAddress getLocatorAddress(String locatorStr) {
     Matcher matcher = LOCATOR_PATTERN.matcher(locatorStr);
-    if(!matcher.matches()) {
+    if (!matcher.matches()) {
       throw new IllegalStateException("Unable to parse locator: " + locatorStr);
     }
     return new InetSocketAddress(matcher.group(1), Integer.parseInt(matcher.group(2)));
@@ -184,7 +130,7 @@ public class GeodeClient extends DB {
 
   @Override
   public Status read(String table, String key, Set<String> fields,
-      Map<String, ByteIterator> result) {
+                     Map<String, ByteIterator> result) {
     Region<String, PdxInstance> r = getRegion(table);
     PdxInstance val = r.get(key);
     if (val != null) {
@@ -237,22 +183,27 @@ public class GeodeClient extends DB {
   }
 
   private Region<String, PdxInstance> getRegion(String table) {
-    Region<String, PdxInstance> r = cache.getRegion(table);
+    Region<String, PdxInstance> r = getCacheRegion(table);
     if (r == null) {
-      try {
-        if (isClient) {
+      synchronized (GeodeClient.class) {
+        try {
           ClientRegionFactory<String, PdxInstance> crf =
-              ((ClientCache) cache).createClientRegionFactory(ClientRegionShortcut.PROXY);
+              ((ClientCache) getCache()).createClientRegionFactory(ClientRegionShortcut.CACHING_PROXY);
           r = crf.create(table);
-        } else {
-          RegionFactory<String, PdxInstance> rf = ((Cache) cache).createRegionFactory(RegionShortcut.PARTITION);
-          r = rf.create(table);
+        } catch (RegionExistsException e) {
+          // another thread created the region
+          r = getCacheRegion(table);
         }
-      } catch (RegionExistsException e) {
-        // another thread created the region
-        r = cache.getRegion(table);
       }
     }
     return r;
+  }
+
+  private Region<String, PdxInstance> getCacheRegion(String table) {
+    return getCache().getRegion(table);
+  }
+
+  private GemFireCache getCache() {
+    return cache;
   }
 }
