@@ -45,11 +45,12 @@ LICENSE file.
       <artifactId>gemfire-core</artifactId>
       <version>${vmware.gemfire.version}</version>
     </dependency>
-    <dependency>
+    <!-- comment out due to lookup error -->
+    <!-- <dependency> 
       <groupId>com.vmware.gemfire</groupId>
       <artifactId>gemfire-cq</artifactId>
       <version>${vmware.gemfire.version}</version>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>core</artifactId>
