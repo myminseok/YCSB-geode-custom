@@ -90,9 +90,9 @@ public class GeodeClient extends DB {
           
       synchronized (GeodeClient.class) {
         if (cache == null) {
-          System.err.println("Creating Cache");
+          System.err.println("[INFO] geode.Creating Cache");
           cache = ccf.create();
-          System.err.println("Created Cache: " + cache.getName());
+          System.err.println("[INFO] geode.Created Cache: " + cache.getName());
         }
       }
       cacheStarted = true;
@@ -164,7 +164,7 @@ public class GeodeClient extends DB {
       }
       return Status.OK;
     }
-    System.out.println("[ERROR] GeodeClient.java read(): PdxInstance ERROR null"); // TODO
+    System.out.println("[ERROR] [INFO] geode.GeodeClient read(): no data for key: "+key); // TODO
     return Status.ERROR;
   }
 

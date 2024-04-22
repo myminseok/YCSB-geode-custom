@@ -29,7 +29,7 @@ public class UserPasswordAuthInit implements AuthInitialize {
   public Properties getCredentials(Properties properties, DistributedMember distributedMember, boolean isPeer) 
   throws AuthenticationFailedException {
     Properties props= Measurements.getProperties();
-    System.out.println("## UserPasswordAuthInit security-username:"+ props.getProperty("gfsh-username"));
+    System.out.println("[INFO] geode.UserPasswordAuthInit security-username: "+ props.getProperty("gfsh-username"));
     properties.setProperty("security-username", props.getProperty("gfsh-username"));
     properties.setProperty("security-password", props.getProperty("gfsh-password"));
     return properties; 

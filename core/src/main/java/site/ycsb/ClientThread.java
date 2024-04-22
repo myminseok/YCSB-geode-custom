@@ -95,6 +95,7 @@ public class ClientThread implements Runnable {
       return;
     }
 
+    System.out.println("[INFO] core.ClientThread initialized: threadid: "+threadid); // TODO
     try {
       workloadstate = workload.initThread(props, threadid, threadcount);
     } catch (WorkloadException e) {

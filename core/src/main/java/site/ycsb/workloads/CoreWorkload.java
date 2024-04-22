@@ -390,6 +390,7 @@ public class CoreWorkload extends Workload {
         FIELD_LENGTH_DISTRIBUTION_PROPERTY, FIELD_LENGTH_DISTRIBUTION_PROPERTY_DEFAULT);
     int fieldlength =
         Integer.parseInt(p.getProperty(FIELD_LENGTH_PROPERTY, FIELD_LENGTH_PROPERTY_DEFAULT));
+    System.out.println("[INFO] core.CoreWorkload fieldlength:"+ fieldlength);
     int minfieldlength =
         Integer.parseInt(p.getProperty(MIN_FIELD_LENGTH_PROPERTY, MIN_FIELD_LENGTH_PROPERTY_DEFAULT));
     String fieldlengthhistogram = p.getProperty(

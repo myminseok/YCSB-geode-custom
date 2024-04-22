@@ -276,13 +276,15 @@ public final class Client {
   @SuppressWarnings("unchecked")
   public static void main(String[] args) {
     Properties props = parseArguments(args);
+    //TODO
+    System.out.println("[INFO] core.Client recordcount:"+ props.getProperty("recordcount"));
+    System.out.println("[INFO] core.Client threadcount:"+ props.getProperty("threadcount"));
+    System.out.println("[INFO] core.Client operationcount:"+ props.getProperty("operationcount"));
+    System.out.println("[INFO] core.Client readproportion:"+ props.getProperty("readproportion"));
+    System.out.println("[INFO] core.Client updateproportion:"+ props.getProperty("updateproportion"));
+    System.out.println("[INFO] core.Client fieldlength:"+ props.getProperty("fieldlength"));
     
-    System.out.println("[INFO] recordcount:"+ props.getProperty("recordcount"));
-    System.out.println("[INFO] threadcount:"+ props.getProperty("threadcount"));
-    System.out.println("[INFO] operationcount:"+ props.getProperty("operationcount"));
-    System.out.println("[INFO] readproportion:"+ props.getProperty("readproportion"));
-    System.out.println("[INFO] updateproportion:"+ props.getProperty("updateproportion"));
-    
+
     boolean status = Boolean.valueOf(props.getProperty(STATUS_PROPERTY, String.valueOf(false)));
     String label = props.getProperty(LABEL_PROPERTY, "");
 

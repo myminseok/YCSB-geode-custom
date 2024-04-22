@@ -1,15 +1,5 @@
 
-## WARNING 
-there is a bug in YCSB geode module when running against Gemfire for TAS. in that if "threadcount" in workload config is more than 2, it fails to create more than 1 connection to gemfire server. for successful execution, set "threadcount=1" as following:
-
-workload config
-```
-recordcount=1000
-threadcount=1
-operationcount=1000
-```
-
-## about 
+## About 
 folked from https://github.com/brianfrankcooper/YCSB/ and Modified geode module for testing.
 
 added authentication and SSL to geode. 
