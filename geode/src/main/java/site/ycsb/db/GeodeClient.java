@@ -79,11 +79,6 @@ public class GeodeClient extends DB {
   private static volatile GemFireCache cache;
   private static volatile boolean cacheStarted = false;
 
-  public GeodeClient() {
-    System.err.println("Calling GeodeClient constructor");
-
-  }
-
   private void initializeCache() {
     Properties props = getProperties();
     if (props != null && !props.isEmpty()) {
@@ -188,7 +183,7 @@ public class GeodeClient extends DB {
       synchronized (GeodeClient.class) {
         try {
           ClientRegionFactory<String, PdxInstance> crf =
-              ((ClientCache) getCache()).createClientRegionFactory(ClientRegionShortcut.CACHING_PROXY);
+              ((ClientCache) getCache()).createClientRegionFactory(ClientRegionShortcut.PROXY);
           r = crf.create(table);
         } catch (RegionExistsException e) {
           // another thread created the region
