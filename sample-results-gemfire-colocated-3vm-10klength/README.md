@@ -9,6 +9,7 @@ threadcount=20
 operationcount=10000
 readproportion=0.5
 updateproportion=0.5
+#fieldlength=100 # default
 fieldlength=10000
 
 ## sample command 

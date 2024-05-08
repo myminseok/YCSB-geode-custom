@@ -10,7 +10,7 @@ threadcount=20
 operationcount=10000
 readproportion=0.5
 updateproportion=0.5
-#fieldlength=1000 # default
+#fieldlength=100 # default
 ```
 ## Sample command 
 ../bin/ycsb.sh load geode -P ../workloads/workloada -p geode.locator='192.168.0.78[55221]' -P ./ycsb.config -P ./gemfire.config -s &> ./output_gemfire_homelab-multi-10000_5t_load.txt
